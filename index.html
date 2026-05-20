@@ -50,7 +50,10 @@
                                                       domain: 'https://europe.directline.botframework.com/v3/directline'});
 
         // Render the Web Chat
-        WebChat.renderWebChat({ directLine, styleOptions }, document.getElementById('webchat'));
+        WebChat.renderWebChat({
+          locale: styleOptions.locale,
+          dir: styleOptions.direction,
+          directLine, styleOptions }, document.getElementById('webchat'));
       })();
     </script>
   <!-- Code injected by live-server -->
