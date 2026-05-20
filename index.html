@@ -40,7 +40,8 @@
         const { token } = await response.json();
 
         // Create the Direct Line instance
-        const directLine = WebChat.createDirectLine({ token });
+        const directLine = WebChat.createDirectLine({ token,
+                                                      domain: 'https://europe.directline.botframework.com/v3/directline'});
 
         // Render the Web Chat
         WebChat.renderWebChat({ directLine, styleOptions }, document.getElementById('webchat'));
