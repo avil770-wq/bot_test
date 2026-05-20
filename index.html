@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="he">
   <head>
     <title>Contoso Sample Web Chat</title>
     <style>
@@ -22,77 +22,176 @@
         border: 1px solid #ccc;
       }
     </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="webchat"></div>
-    <script crossorigin="anonymous" src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
+    <script
+      crossorigin="anonymous"
+      src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"
+    ></script>
     <script>
       // Extracting the user-provided token endpoint and style options
-      const tokenEndpoint = 'https://462e35406812453e9659ef94350b08.2a.environment.api.powerplatform.com/powervirtualagents/botsbyschema/crd22_agent6/directline/token?api-version=2022-03-01-preview';
+      const tokenEndpoint =
+        "https://462e35406812453e9659ef94350b08.2a.environment.api.powerplatform.com/powervirtualagents/botsbyschema/crd22_agent6/directline/token?api-version=2022-03-01-preview";
       const styleOptions = {
-      locale: "he-IL",
-      direction: "rtl",
-        "rtl":true,"accent":"#1745B0FF","autoScrollSnapOnPage":true,"autoScrollSnapOnPageOffset":0,"avatarBorderRadius":"0%","avatarSize":30,"backgroundColor":"#FFFFFFFF","botAvatarBackgroundColor":"#FFFFFFFF","botAvatarImage":"https://assets-eur.mkt.dynamics.com/13423f0e-c8cf-4d2f-b0b9-167e0b3fc707/digitalassets/images/4682dc2e-7854-f111-bec7-000d3adf57ee?ts=639148978629838133","botAvatarInitials":"","bubbleAttachmentMaxWidth":480,"bubbleAttachmentMinWidth":250,"bubbleBackground":"#FFFFFFFF","bubbleBorderColor":"#FFFFFFFF","bubbleBorderRadius":8,"bubbleBorderStyle":"solid","bubbleBorderWidth":1,"bubbleFromUserBackground":"#F1F6FB","bubbleFromUserBorderColor":"#FFFFFFFF","bubbleFromUserBorderRadius":8,"bubbleFromUserBorderStyle":"solid","bubbleFromUserBorderWidth":1,"bubbleFromUserNubOffset":0,"bubbleFromUserNubSize":0,"bubbleFromUserTextColor":"","bubbleImageHeight":10,"bubbleImageMaxHeight":240,"bubbleImageMinHeight":240,"bubbleMessageMaxWidth":480,"bubbleMessageMinWidth":120,"bubbleMinHeight":50,"bubbleNubOffset":0,"bubbleTextColor":"","emojiSet":true,"fontSizeSmall":"70%","hideUploadButton":true,"messageActivityWordBreak":"break-word","monospaceFont":"Consolas","paddingRegular":10,"paddingWide":10,"primaryFont":"Open Sans","sendBoxBackground":"#FFFFFFFF","sendBoxBorderTop":"solid 1px ","sendBoxButtonColor":"#96D600","sendBoxButtonColorOnHover":"#87c000","sendBoxButtonShadeBorderRadius":40,"sendBoxButtonShadeColorOnHover":"","sendBoxHeight":60,"sendBoxPlaceholderColor":"#030e1d","sendBoxTextColor":"#071C3B","showAvatarInGroup":"status","spinnerAnimationHeight":16,"spinnerAnimationPadding":12,"spinnerAnimationWidth":16,"subtleColor":"#071C3B","suggestedActionBackgroundColor":"#1745B0FF","suggestedActionBackgroundColorOnHover":"#1745B0FF","suggestedActionBorderColor":"","suggestedActionBorderRadius":0,"suggestedActionBorderWidth":1,"suggestedActionLayout":"flow","suggestedActionTextColor":"#FFFFFFFF","typingAnimationBackgroundImage":"url('https://wpamelia.com/wp-content/uploads/2018/11/ezgif-2-6d0b072c3d3f.gif')","typingAnimationDuration":5000,"typingAnimationHeight":20,"typingAnimationWidth":64,"userAvatarBackgroundColor":"#FFFFFFFF","userAvatarImage":"","userAvatarInitials":""};
+        locale: "he-IL",
+        direction: "rtl",
+        rtl: true,
+        accent: "#1745B0FF",
+        autoScrollSnapOnPage: true,
+        autoScrollSnapOnPageOffset: 0,
+        avatarBorderRadius: "0%",
+        avatarSize: 30,
+        backgroundColor: "#FFFFFFFF",
+        botAvatarBackgroundColor: "#FFFFFFFF",
+        botAvatarImage:
+          "https://assets-eur.mkt.dynamics.com/13423f0e-c8cf-4d2f-b0b9-167e0b3fc707/digitalassets/images/4682dc2e-7854-f111-bec7-000d3adf57ee?ts=639148978629838133",
+        botAvatarInitials: "",
+        bubbleAttachmentMaxWidth: 480,
+        bubbleAttachmentMinWidth: 250,
+        bubbleBackground: "#FFFFFFFF",
+        bubbleBorderColor: "#FFFFFFFF",
+        bubbleBorderRadius: 8,
+        bubbleBorderStyle: "solid",
+        bubbleBorderWidth: 1,
+        bubbleFromUserBackground: "#F1F6FB",
+        bubbleFromUserBorderColor: "#FFFFFFFF",
+        bubbleFromUserBorderRadius: 8,
+        bubbleFromUserBorderStyle: "solid",
+        bubbleFromUserBorderWidth: 1,
+        bubbleFromUserNubOffset: 0,
+        bubbleFromUserNubSize: 0,
+        bubbleFromUserTextColor: "",
+        bubbleImageHeight: 10,
+        bubbleImageMaxHeight: 240,
+        bubbleImageMinHeight: 240,
+        bubbleMessageMaxWidth: 480,
+        bubbleMessageMinWidth: 120,
+        bubbleMinHeight: 50,
+        bubbleNubOffset: 0,
+        bubbleTextColor: "",
+        emojiSet: true,
+        fontSizeSmall: "70%",
+        hideUploadButton: true,
+        messageActivityWordBreak: "break-word",
+        monospaceFont: "Consolas",
+        paddingRegular: 10,
+        paddingWide: 10,
+        primaryFont: "Open Sans",
+        sendBoxBackground: "#FFFFFFFF",
+        sendBoxBorderTop: "solid 1px ",
+        sendBoxButtonColor: "#96D600",
+        sendBoxButtonColorOnHover: "#87c000",
+        sendBoxButtonShadeBorderRadius: 40,
+        sendBoxButtonShadeColorOnHover: "",
+        sendBoxHeight: 60,
+        sendBoxPlaceholderColor: "#030e1d",
+        sendBoxTextColor: "#071C3B",
+        showAvatarInGroup: "status",
+        spinnerAnimationHeight: 16,
+        spinnerAnimationPadding: 12,
+        spinnerAnimationWidth: 16,
+        subtleColor: "#071C3B",
+        suggestedActionBackgroundColor: "#1745B0FF",
+        suggestedActionBackgroundColorOnHover: "#1745B0FF",
+        suggestedActionBorderColor: "",
+        suggestedActionBorderRadius: 0,
+        suggestedActionBorderWidth: 1,
+        suggestedActionLayout: "flow",
+        suggestedActionTextColor: "#FFFFFFFF",
+        // typingAnimationBackgroundImage:
+        //   "url('https://wpamelia.com/wp-content/uploads/2018/11/ezgif-2-6d0b072c3d3f.gif')",
+        // typingAnimationDuration: 5000,
+        // typingAnimationHeight: 20,
+        // typingAnimationWidth: 64,
+        userAvatarBackgroundColor: "#FFFFFFFF",
+        userAvatarImage: "",
+        userAvatarInitials: "",
+      };
 
       (async function () {
         // Fetch the token using the provided endpoint
         const response = await fetch(tokenEndpoint);
         if (!response.ok) {
-          throw new Error('Failed to retrieve Direct Line token.');
+          throw new Error("Failed to retrieve Direct Line token.");
         }
         const { token } = await response.json();
 
         // Create the Direct Line instance
-        const directLine = WebChat.createDirectLine({ token,
-                                                      domain: 'https://europe.directline.botframework.com/v3/directline'});
+        const directLine = WebChat.createDirectLine({
+          token,
+          domain: "https://europe.directline.botframework.com/v3/directline",
+        });
 
         // Render the Web Chat
-        WebChat.renderWebChat({
-          locale: styleOptions.locale,
-          dir: styleOptions.direction,
-          directLine, styleOptions }, document.getElementById('webchat'));
+        WebChat.renderWebChat(
+          {
+            locale: styleOptions.locale,
+            dir: styleOptions.direction,
+            directLine,
+            styleOptions,
+          },
+          document.getElementById("webchat"),
+        );
       })();
     </script>
-  <!-- Code injected by live-server -->
-<script>
- // <![CDATA[  <-- For SVG support
- if ('WebSocket' in window) {
-  (function () {
-   function refreshCSS() {
-    var sheets = [].slice.call(document.getElementsByTagName("link"));
-    var head = document.getElementsByTagName("head")[0];
-    for (var i = 0; i < sheets.length; ++i) {
-     var elem = sheets[i];
-     var parent = elem.parentElement || head;
-     parent.removeChild(elem);
-     var rel = elem.rel;
-     if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-      var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-      elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-     }
-     parent.appendChild(elem);
-    }
-   }
-   var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-   var address = protocol + window.location.host + window.location.pathname + '/ws';
-   var socket = new WebSocket(address);
-   socket.onmessage = function (msg) {
-    if (msg.data == 'reload') window.location.reload();
-    else if (msg.data == 'refreshcss') refreshCSS();
-   };
-   if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-    console.log('Live reload enabled.');
-    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-   }
-  })();
- }
- else {
-  console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
- }
- // ]]>
-</script>
-</body>
+    <!-- Code injected by live-server -->
+    <script>
+      // <![CDATA[  <-- For SVG support
+      if ("WebSocket" in window) {
+        (function () {
+          function refreshCSS() {
+            var sheets = [].slice.call(document.getElementsByTagName("link"));
+            var head = document.getElementsByTagName("head")[0];
+            for (var i = 0; i < sheets.length; ++i) {
+              var elem = sheets[i];
+              var parent = elem.parentElement || head;
+              parent.removeChild(elem);
+              var rel = elem.rel;
+              if (
+                (elem.href && typeof rel != "string") ||
+                rel.length == 0 ||
+                rel.toLowerCase() == "stylesheet"
+              ) {
+                var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, "");
+                elem.href =
+                  url +
+                  (url.indexOf("?") >= 0 ? "&" : "?") +
+                  "_cacheOverride=" +
+                  new Date().valueOf();
+              }
+              parent.appendChild(elem);
+            }
+          }
+          var protocol =
+            window.location.protocol === "http:" ? "ws://" : "wss://";
+          var address =
+            protocol + window.location.host + window.location.pathname + "/ws";
+          var socket = new WebSocket(address);
+          socket.onmessage = function (msg) {
+            if (msg.data == "reload") window.location.reload();
+            else if (msg.data == "refreshcss") refreshCSS();
+          };
+          if (
+            sessionStorage &&
+            !sessionStorage.getItem("IsThisFirstTime_Log_From_LiveServer")
+          ) {
+            console.log("Live reload enabled.");
+            sessionStorage.setItem("IsThisFirstTime_Log_From_LiveServer", true);
+          }
+        })();
+      } else {
+        console.error(
+          "Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.",
+        );
+      }
+      // ]]>
+    </script>
+  </body>
 </html>
