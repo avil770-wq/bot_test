@@ -15,7 +15,7 @@
         display: none;
         flex-direction: column;
         width: 429px;
-        min-height: 742px;
+        height: 742px;
         box-shadow: 0px -7px 24px rgba(0, 0, 0, 0.12);
         border-radius: 12px 12px 0px 0px;
         overflow: hidden;
@@ -89,6 +89,7 @@
       #webchat {
         width: 100%;
         flex: 1;
+        min-height: 0;
       }
       #chat-footer {
         width: 100%;
@@ -431,16 +432,16 @@
       const confirmCloseBtn = document.getElementById('confirm-close-btn');
       const cancelCloseBtn = document.getElementById('cancel-close-btn');
       let webchatInitialized = false;
+      let activeDirectLine = null;
 
       async function initWebChat() {
         if (webchatInitialized) return;
-        webchatInitialized = true;
 
         const response = await fetch(tokenEndpoint);
         if (!response.ok) throw new Error("Failed to retrieve Direct Line token.");
         const { token } = await response.json();
 
-        const directLine = WebChat.createDirectLine({
+        activeDirectLine = WebChat.createDirectLine({
           token,
           domain: "https://europe.directline.botframework.com/v3/directline",
         });
@@ -449,7 +450,7 @@
           {
             locale: styleOptions.locale,
             dir: styleOptions.direction,
-            directLine,
+            directLine: activeDirectLine,
             styleOptions,
             overrideLocalizedStrings: {
               TEXT_INPUT_PLACEHOLDER: "כאן מקלידים...",
@@ -466,6 +467,8 @@
           },
           document.getElementById("webchat"),
         );
+
+        webchatInitialized = true;
       }
 
       toggleBtn.addEventListener('click', () => {
@@ -486,6 +489,10 @@
         overlay.style.display = 'none';
         chatContainer.style.display = 'none';
         toggleBtn.style.display = 'flex';
+        if (activeDirectLine) {
+          activeDirectLine.end();
+          activeDirectLine = null;
+        }
         document.getElementById('webchat').innerHTML = '';
         webchatInitialized = false;
       });
