@@ -176,6 +176,56 @@
         background: #05454f;
       }
 
+      #close-confirm-overlay {
+        position: absolute;
+        inset: 0;
+        background: #ffffff;
+        z-index: 10;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        direction: rtl;
+        gap: 24px;
+      }
+      #close-confirm-overlay p {
+        font-family: "Open Sans", sans-serif;
+        font-size: 16px;
+        color: #1d3a80;
+        font-weight: 600;
+        margin: 0;
+        text-align: center;
+        padding: 0 24px;
+      }
+      #close-confirm-overlay .confirm-buttons {
+        display: flex;
+        gap: 12px;
+        direction: rtl;
+      }
+      #close-confirm-overlay button {
+        font-family: "Open Sans", sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        padding: 10px 28px;
+        border-radius: 50px;
+        cursor: pointer;
+        border: none;
+      }
+      #confirm-close-btn {
+        background: #00667d;
+        color: #ffffff;
+      }
+      #confirm-close-btn:hover {
+        background: #05454f;
+      }
+      #cancel-close-btn {
+        background: #f0f0f0;
+        color: #1d3a80;
+      }
+      #cancel-close-btn:hover {
+        background: #e0e0e0;
+      }
+
       .typing-dots {
         display: flex;
         align-items: center;
@@ -266,6 +316,13 @@
             />
           </svg>
         </button>
+      </div>
+      <div id="close-confirm-overlay">
+        <p>השיחה תתאפס ותיסגר.<br/>האם להמשיך?</p>
+        <div class="confirm-buttons">
+          <button id="confirm-close-btn" type="button">אישור</button>
+          <button id="cancel-close-btn" type="button">ביטול</button>
+        </div>
       </div>
       <div id="webchat"></div>
       <div id="chat-footer">
@@ -367,21 +424,27 @@
         userAvatarInitials: "",
       };
 
-      (async function () {
-        // Fetch the token using the provided endpoint
+      const toggleBtn = document.getElementById('chat-toggle-btn');
+      const chatContainer = document.getElementById('chat-container');
+      const closeBtn = document.getElementById('close-btn');
+      const overlay = document.getElementById('close-confirm-overlay');
+      const confirmCloseBtn = document.getElementById('confirm-close-btn');
+      const cancelCloseBtn = document.getElementById('cancel-close-btn');
+      let webchatInitialized = false;
+
+      async function initWebChat() {
+        if (webchatInitialized) return;
+        webchatInitialized = true;
+
         const response = await fetch(tokenEndpoint);
-        if (!response.ok) {
-          throw new Error("Failed to retrieve Direct Line token.");
-        }
+        if (!response.ok) throw new Error("Failed to retrieve Direct Line token.");
         const { token } = await response.json();
 
-        // Create the Direct Line instance
         const directLine = WebChat.createDirectLine({
           token,
           domain: "https://europe.directline.botframework.com/v3/directline",
         });
 
-        // Render the Web Chat
         WebChat.renderWebChat(
           {
             locale: styleOptions.locale,
@@ -403,20 +466,28 @@
           },
           document.getElementById("webchat"),
         );
-      })();
-
-      const toggleBtn = document.getElementById('chat-toggle-btn');
-      const chatContainer = document.getElementById('chat-container');
-      const closeBtn = document.getElementById('close-btn');
+      }
 
       toggleBtn.addEventListener('click', () => {
         chatContainer.style.display = 'flex';
         toggleBtn.style.display = 'none';
+        initWebChat();
       });
 
       closeBtn.addEventListener('click', () => {
+        overlay.style.display = 'flex';
+      });
+
+      cancelCloseBtn.addEventListener('click', () => {
+        overlay.style.display = 'none';
+      });
+
+      confirmCloseBtn.addEventListener('click', () => {
+        overlay.style.display = 'none';
         chatContainer.style.display = 'none';
         toggleBtn.style.display = 'flex';
+        document.getElementById('webchat').innerHTML = '';
+        webchatInitialized = false;
       });
     </script>
     <!-- Code injected by live-server -->
