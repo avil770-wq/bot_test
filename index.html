@@ -9,18 +9,41 @@
         margin: 0;
       }
       body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
         background: #f0f0f0;
       }
       #chat-container {
-        display: flex;
+        display: none;
         flex-direction: column;
         width: 429px;
+        min-height: 742px;
         box-shadow: 0px -7px 24px rgba(0, 0, 0, 0.12);
         border-radius: 12px 12px 0px 0px;
         overflow: hidden;
+        position: fixed;
+        bottom: 0;
+        left: 20px;
+        z-index: 1000;
+      }
+      #chat-toggle-btn {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: #96d600;
+        border: 3px solid rgba(150, 214, 0, 0.35);
+        outline: 3px solid rgba(150, 214, 0, 0.2);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1001;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transition: background 0.2s;
+      }
+      #chat-toggle-btn:hover {
+        background: #87c000;
       }
       #chat-header {
         height: 47px;
@@ -65,7 +88,7 @@
       }
       #webchat {
         width: 100%;
-        height: 500px;
+        flex: 1;
       }
       #chat-footer {
         width: 100%;
@@ -183,6 +206,18 @@
     />
   </head>
   <body>
+    <button id="chat-toggle-btn" type="button" aria-label="פתח צ'אט">
+      <svg width="28" height="28" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_toggle)">
+          <path d="M14.7192 2.14375L15.4113 0.274532C15.5468 -0.0914293 16.0646 -0.0914293 16.2002 0.274532L16.8922 2.14375C17.1745 2.90635 17.776 3.50761 18.5389 3.7897L20.4089 4.48144C20.775 4.61695 20.775 5.13454 20.4089 5.27005L18.5389 5.96178C17.776 6.24387 17.1745 6.84514 16.8922 7.60773L16.2002 9.47695C16.0646 9.84291 15.5468 9.84291 15.4113 9.47695L14.7192 7.60773C14.437 6.84514 13.8355 6.24387 13.0726 5.96178L11.2026 5.27005C10.8364 5.13454 10.8364 4.61695 11.2026 4.48144L13.0726 3.7897C13.8355 3.50761 14.437 2.90635 14.7192 2.14375Z" fill="white"/>
+          <path d="M10.0536 21.1075C8.74817 21.1075 7.4756 20.86 6.27081 20.3715C5.02309 19.8658 3.90396 19.123 2.94448 18.1641C1.985 17.205 1.24208 16.0864 0.73612 14.8392C0.247639 13.6351 0 12.3629 0 11.0582C0 9.75359 0.247639 8.48136 0.736314 7.27708C1.24227 6.0299 1.98539 4.91125 2.94467 3.95218C5.07165 1.82611 8.01069 0.769576 11.0082 1.054C11.5421 1.10467 11.9339 1.57838 11.8832 2.11208C11.8325 2.64578 11.3584 3.03737 10.8247 2.98689C8.40555 2.75742 6.03405 3.60971 4.31786 5.32516C1.15526 8.48641 1.15526 13.6303 4.31786 16.7915C7.48045 19.9527 12.6265 19.9527 15.7891 16.7915C17.637 14.9444 18.4838 12.3009 18.0544 9.72019C17.9664 9.19134 18.3239 8.69123 18.853 8.60328C19.3823 8.51534 19.8824 8.87275 19.9704 9.4016C20.2276 10.9472 20.1182 12.5533 19.6544 14.0467C19.1749 15.5905 18.3131 17.0144 17.1627 18.1643C16.2032 19.1234 15.084 19.866 13.8363 20.3717C12.6315 20.86 11.359 21.1077 10.0536 21.1077V21.1075Z" fill="white"/>
+          <path d="M20.0289 22C19.7803 22 19.5319 21.9052 19.3421 21.7157L15.7891 18.1643C15.4098 17.7851 15.4098 17.1706 15.7891 16.7915C16.1685 16.4123 16.7832 16.4123 17.1625 16.7915L20.7155 20.343C21.0948 20.7221 21.0948 21.3366 20.7155 21.7157C20.5259 21.9052 20.2775 22 20.0289 22Z" fill="white"/>
+        </g>
+        <defs>
+          <clipPath id="clip0_toggle"><rect width="21" height="22" fill="white"/></clipPath>
+        </defs>
+      </svg>
+    </button>
     <div id="chat-container">
       <div id="chat-header">
         <div id="header-content">
@@ -369,6 +404,20 @@
           document.getElementById("webchat"),
         );
       })();
+
+      const toggleBtn = document.getElementById('chat-toggle-btn');
+      const chatContainer = document.getElementById('chat-container');
+      const closeBtn = document.getElementById('close-btn');
+
+      toggleBtn.addEventListener('click', () => {
+        chatContainer.style.display = 'flex';
+        toggleBtn.style.display = 'none';
+      });
+
+      closeBtn.addEventListener('click', () => {
+        chatContainer.style.display = 'none';
+        toggleBtn.style.display = 'flex';
+      });
     </script>
     <!-- Code injected by live-server -->
     <script>
