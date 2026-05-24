@@ -108,6 +108,12 @@
         min-width: 34px !important;
         height: 34px !important;
         margin: 0 4px !important;
+        background-image: url('https://assets-eur.mkt.dynamics.com/13423f0e-c8cf-4d2f-b0b9-167e0b3fc707/digitalassets/images/4782dc2e-7854-f111-bec7-000d3adf57ee?ts=639148978629999350') !important;
+        background-size: cover !important;
+        background-color: transparent !important;
+      }
+      #webchat .webchat__send-box-button svg {
+        display: none !important;
       }
 
       #color-bar span { flex: 1; }
@@ -255,6 +261,9 @@
             dir: styleOptions.direction,
             directLine,
             styleOptions,
+            overrideLocalizedStrings: {
+              TEXT_INPUT_PLACEHOLDER: 'כאן מקלידים...',
+            },
           },
           document.getElementById("webchat"),
         );
