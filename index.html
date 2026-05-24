@@ -120,6 +120,7 @@
         background-size: cover !important;
         background-color: transparent !important;
         align-self: center !important;
+        cursor: pointer !important;
       }
       #webchat .webchat__send-box__text-box {
         align-self: center !important;
@@ -150,6 +151,28 @@
       }
       #color-bar span:nth-child(5) {
         background: #05454f;
+      }
+
+      .typing-dots {
+        display: flex;
+        align-items: center;
+        padding: 8px 16px 4px;
+        gap: 6px;
+        direction: rtl;
+      }
+      .typing-dots span {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #00667d;
+        animation: typing-bounce 1.2s ease-in-out infinite;
+        opacity: 0.4;
+      }
+      .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+      .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+      @keyframes typing-bounce {
+        0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+        30% { transform: translateY(-6px); opacity: 1; }
       }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -229,6 +252,7 @@
         <span></span>
       </div>
     </div>
+    <script crossorigin="anonymous" src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
     <script
       crossorigin="anonymous"
       src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"
@@ -303,11 +327,6 @@
         suggestedActionBorderWidth: 1,
         suggestedActionLayout: "flow",
         suggestedActionTextColor: "#FFFFFFFF",
-        typingAnimationBackgroundImage:
-          "https://user-images.githubusercontent.com/3059371/49334754-3c9dfe00-f5ab-11e8-8885-0192552d12a1.gif",
-        typingAnimationDuration: 60000,
-        typingAnimationHeight: 20,
-        typingAnimationWidth: 64,
         userAvatarBackgroundColor: "#FFFFFFFF",
         userAvatarImage: "",
         userAvatarInitials: "",
@@ -336,6 +355,15 @@
             styleOptions,
             overrideLocalizedStrings: {
               TEXT_INPUT_PLACEHOLDER: "כאן מקלידים...",
+            },
+            typingIndicatorMiddleware: () => () => ({ activeTyping }) => {
+              if (!Object.keys(activeTyping).length) return null;
+              return React.createElement(
+                'div', { className: 'typing-dots' },
+                React.createElement('span'),
+                React.createElement('span'),
+                React.createElement('span')
+              );
             },
           },
           document.getElementById("webchat"),
