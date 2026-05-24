@@ -94,6 +94,22 @@
         display: flex;
         flex-wrap: nowrap;
       }
+      /* Send box pill shape overrides */
+      #webchat .webchat__send-box__main {
+        border-radius: 50px !important;
+        border: 1px solid #05454F !important;
+        margin: 8px 16px !important;
+        overflow: hidden;
+        background: #FFFFFF !important;
+      }
+      #webchat .webchat__send-box-button {
+        border-radius: 50% !important;
+        width: 34px !important;
+        min-width: 34px !important;
+        height: 34px !important;
+        margin: 0 4px !important;
+      }
+
       #color-bar span { flex: 1; }
       #color-bar span:nth-child(1) { background: #96D600; }
       #color-bar span:nth-child(2) { background: #29D1D8; }
@@ -108,11 +124,6 @@
   <body>
     <div id="chat-container">
     <div id="chat-header">
-      <button id="close-btn" type="button" aria-label="סגור">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18 6L6 18M6 6l12 12" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </button>
       <div id="header-content">
         <span id="header-title">חיפוש סדנאות ב AI</span>
         <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -120,6 +131,11 @@
           <path d="M14.5 15L19 19.5" stroke="#1D3A80" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </div>
+      <button id="close-btn" type="button" aria-label="סגור">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18M6 6l12 12" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
     </div>
     <div id="webchat"></div>
     <div id="chat-footer">
@@ -141,7 +157,7 @@
     <script>
       // Extracting the user-provided token endpoint and style options
       const tokenEndpoint =
-        "https://462e35406812453e9659ef94350b08.2a.environment.api.powerplatform.com/powervirtualagents/botsbyschema/crd22_agent6/directline/token?api-version=2022-03-01-preview";
+        "https://hawo-mockbot4-token-app.ambitiousflower-67725bfd.westus.azurecontainerapps.io/api/token/directline";
       const styleOptions = {
         locale: "he-IL",
         direction: "rtl",
