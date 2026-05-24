@@ -220,7 +220,7 @@
 
       (async function () {
         // Fetch the token using the provided endpoint
-        const response = await fetch(tokenEndpoint, { method: 'POST' });
+        const response = await fetch(tokenEndpoint);
         if (!response.ok) {
           throw new Error("Failed to retrieve Direct Line token.");
         }
