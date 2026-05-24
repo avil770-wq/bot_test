@@ -1,7 +1,7 @@
 <html lang="he">
   <head>
     <meta charset="utf-8" />
-    <title>2 Contoso Sample Web Chat</title>
+    <title>3 Contoso Sample Web Chat</title>
     <style>
       html,
       body {
@@ -440,7 +440,18 @@
           dir: styleOptions.direction,
           directLine,
           styleOptions,
-          store: WebChat.createStore(),
+          store: WebChat.createStore({}, () => next => action => {
+            if (action.type === 'WEB_CHAT/SEND_MESSAGE') {
+              action = {
+                ...action,
+                payload: {
+                  ...action.payload,
+                  channelData: { responseFormat: 'json' }
+                }
+              };
+            }
+            return next(action);
+          }),
           overrideLocalizedStrings: {
             TEXT_INPUT_PLACEHOLDER: "כאן מקלידים...",
           },
