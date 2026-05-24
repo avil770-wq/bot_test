@@ -1,7 +1,7 @@
 <html lang="he">
   <head>
     <meta charset="utf-8" />
-    <title>1 Contoso Sample Web Chat</title>
+    <title>2 Contoso Sample Web Chat</title>
     <style>
       html,
       body {
@@ -434,6 +434,28 @@
       let webchatInitialized = false;
       let activeDirectLine = null;
 
+      function buildWebChatProps(directLine) {
+        return {
+          locale: styleOptions.locale,
+          dir: styleOptions.direction,
+          directLine,
+          styleOptions,
+          store: WebChat.createStore(),
+          overrideLocalizedStrings: {
+            TEXT_INPUT_PLACEHOLDER: "כאן מקלידים...",
+          },
+          typingIndicatorMiddleware: () => () => ({ activeTyping }) => {
+            if (!Object.keys(activeTyping).length) return null;
+            return React.createElement(
+              'div', { className: 'typing-dots' },
+              React.createElement('span'),
+              React.createElement('span'),
+              React.createElement('span')
+            );
+          },
+        };
+      }
+
       async function initWebChat() {
         if (webchatInitialized) return;
 
@@ -446,29 +468,26 @@
           domain: "https://europe.directline.botframework.com/v3/directline",
         });
 
-        WebChat.renderWebChat(
-          {
-            locale: styleOptions.locale,
-            dir: styleOptions.direction,
-            directLine: activeDirectLine,
-            styleOptions,
-            overrideLocalizedStrings: {
-              TEXT_INPUT_PLACEHOLDER: "כאן מקלידים...",
-            },
-            typingIndicatorMiddleware: () => () => ({ activeTyping }) => {
-              if (!Object.keys(activeTyping).length) return null;
-              return React.createElement(
-                'div', { className: 'typing-dots' },
-                React.createElement('span'),
-                React.createElement('span'),
-                React.createElement('span')
-              );
-            },
-          },
-          document.getElementById("webchat"),
-        );
-
+        WebChat.renderWebChat(buildWebChatProps(activeDirectLine), document.getElementById("webchat"));
         webchatInitialized = true;
+      }
+
+      async function resetWebChat() {
+        if (activeDirectLine) {
+          activeDirectLine.end();
+          activeDirectLine = null;
+        }
+
+        const response = await fetch(tokenEndpoint);
+        if (!response.ok) throw new Error("Failed to retrieve Direct Line token.");
+        const { token } = await response.json();
+
+        activeDirectLine = WebChat.createDirectLine({
+          token,
+          domain: "https://europe.directline.botframework.com/v3/directline",
+        });
+
+        WebChat.renderWebChat(buildWebChatProps(activeDirectLine), document.getElementById("webchat"));
       }
 
       toggleBtn.addEventListener('click', () => {
@@ -485,16 +504,13 @@
         overlay.style.display = 'none';
       });
 
-      confirmCloseBtn.addEventListener('click', () => {
+      confirmCloseBtn.addEventListener('click', async () => {
         overlay.style.display = 'none';
         chatContainer.style.display = 'none';
         toggleBtn.style.display = 'flex';
-        if (activeDirectLine) {
-          activeDirectLine.end();
-          activeDirectLine = null;
-        }
-        document.getElementById('webchat').innerHTML = '';
         webchatInitialized = false;
+        await resetWebChat();
+        webchatInitialized = true;
       });
     </script>
     <!-- Code injected by live-server -->
